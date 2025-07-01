@@ -24,8 +24,10 @@ import com.palmergames.util.TimeTools;
 
 public class Settings {
 	private static CommentedConfiguration config, newConfig;
-	private static File battleIconFile;
-	public static final String BATTLE_BANNER_FILE_NAME = "crossedswords.png";
+	private static File activeIconFile;
+	private static File dormantIconFile;
+	public static final String DEFAULT_BATTLE_BANNER_FILE = "crossedswords.png";
+	public static final String DEFAULT_PEACEFUL_BANNER_FILE = "fire.png";
 
 	public static boolean loadSettingsAndLang() {
 		SiegeWar sw = SiegeWar.getSiegeWar();
@@ -57,9 +59,17 @@ public class Settings {
 			loadSuccessFlag = false;
 	    }
 
-		//Extract images
 		try {
-			battleIconFile = FileMgmt.extractImageFile(BATTLE_BANNER_FILE_NAME);
+			// Load siege icons from config for map integrations
+			Plugin plugin = SiegeWar.getSiegeWar();
+			activeIconFile = new File(plugin.getDataFolder(), SiegeWarSettings.getActiveMapIcon());
+			dormantIconFile = new File(plugin.getDataFolder(), SiegeWarSettings.getDormantMapIcon());
+
+			// Fallback to plugin defaults
+			if (!activeIconFile.exists() || !dormantIconFile.exists()) {
+				activeIconFile = FileMgmt.extractImageFile(DEFAULT_BATTLE_BANNER_FILE);
+				dormantIconFile = FileMgmt.extractImageFile(DEFAULT_PEACEFUL_BANNER_FILE);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			SiegeWar.severe("Could not load images! Disabling!");
@@ -206,8 +216,12 @@ public class Settings {
 		return Version.fromString(config.getString(ConfigNodes.LAST_RUN_VERSION.getRoot(), "0.0.0.0"));
 	}
 
-	public static File getBattleIconFile() {
-		return battleIconFile;
+	public static File getActiveIconFile() {
+		return activeIconFile;
+	}
+
+	public static File getDormantIconFile() {
+		return dormantIconFile;
 	}
 
 	public static CommentedConfiguration getConfig() {

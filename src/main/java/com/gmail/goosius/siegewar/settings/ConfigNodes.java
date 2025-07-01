@@ -23,10 +23,22 @@ public enum ConfigNodes {
 			"# +------------------------------------------------------+ #",
 			"############################################################",
 			""),
-	WAR_SIEGE_DYNMAP_ROOT(
-			"war.siege.dynmap","","",""),
+	WAR_SIEGE_MAP_ROOT(
+			"war.siege.map", "",
+			"",
+			"# Settings for integrations with web map plugins like Dynmap and Squaremap"),
+	WAR_SIEGE_MAP_ACTIVE_ICON("war.siege.map.battle_icon",
+			"crossedswords.png",
+			"",
+			"# The icon file used for active sieges"
+	),
+	WAR_SIEGE_MAP_DORMANT_ICON("war.siege.map.dormant_icon",
+			"fire.png",
+			"",
+			"# The icon file used for dormant sieges"
+	),
 	WAR_SIEGE_DYNMAP_LAYER_NAME(
-			"war.siege.dynmap.layer_name",
+			"war.siege.map.dynmap_layer_name",
 			"SiegeWar",
 			"",
 			"# The named used in the Dynmap layer name."),
@@ -195,7 +207,7 @@ public enum ConfigNodes {
 			"7",
 			"",
 			"# When plunder_paid_over_time is true, how many days will the plunder debt be paid over?"),
-	
+
 	WAR_SIEGE_CAPITAL_SIEGE_COST_INCREASE_PERCENTAGE(
 			"war.siege.money.capital_siege_cost_increase_percentage",
 			"0",
@@ -243,7 +255,7 @@ public enum ConfigNodes {
 			"# The cost that a town must pay to remain peaceful. Disabled when set to 0.0.",
 			"# This cost is paid after a town pays their upkeep and has their days-to-peaceful-change counted.",
 			"# If a town cannot pay the peaceful cost after they have their peaceful setting changed back to false."),
-	
+
 	WAR_SIEGE_QUANTITIES(
 			"war.siege.quantities",
 			"",

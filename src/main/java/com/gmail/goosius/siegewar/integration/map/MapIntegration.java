@@ -22,20 +22,9 @@ public abstract class MapIntegration {
 
 	public abstract void registerMarkers();
 
-	public abstract void addMarker();
+	public abstract void updateMarker(Siege siege, boolean useDormantIcon);
 
-	public abstract void deleteMarker(UUID uuid);
-
-	public void updateSiegeMarker(UUID townId) {
-		Siege siege = SiegeController.getSiegeByTownUUID(townId);
-
-		// Remove the marker if the siege is not present or in progress
-		if (Objects.isNull(siege) || siege.getStatus() != SiegeStatus.IN_PROGRESS) {
-			deleteMarker(townId);
-		}
-
-
-	}
+	public abstract void removeMarker(Siege siege);
 
 	public void updateSiegeMarkers() {
 

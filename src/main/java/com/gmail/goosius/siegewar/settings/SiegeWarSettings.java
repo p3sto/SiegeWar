@@ -670,7 +670,7 @@ public class SiegeWarSettings {
 		return Settings.getString(ConfigNodes.WAR_SIEGE_MAP_DORMANT_ICON);
 	}
 
-	public static String getDynmapLayerName() {
-		return Settings.getString(ConfigNodes.WAR_SIEGE_DYNMAP_LAYER_NAME);
+	public static String getWebmapLayerName() {
+		return Settings.getString(ConfigNodes.WAR_SIEGE_MAP_LAYER_NAME);
 	}
 }

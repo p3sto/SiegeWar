@@ -37,11 +37,11 @@ public enum ConfigNodes {
 			"",
 			"# The icon file used for dormant sieges"
 	),
-	WAR_SIEGE_DYNMAP_LAYER_NAME(
-			"war.siege.map.dynmap_layer_name",
+	WAR_SIEGE_MAP_LAYER_NAME(
+			"war.siege.map.map_layer_name",
 			"SiegeWar",
 			"",
-			"# The named used in the Dynmap layer name."),
+			"# The named used in the web map layer name."),
 	WAR_SIEGE_SWITCHES(
 			"war.siege.switches",
 			"",

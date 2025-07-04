@@ -88,7 +88,6 @@ public class SquaremapIntegration extends MapIntegration {
 		UUID id = siege.getDefender().getUUID();
 		Key key = Key.key(id.toString());
 		layer.addMarker(key, icon);
-		map.put(id, useDormantIcon ? SiegeIcon.DORMANT : SiegeIcon.ACTIVE);
 	}
 
 	@Override
@@ -96,6 +95,5 @@ public class SquaremapIntegration extends MapIntegration {
 		UUID id = siege.getDefender().getUUID();
 		Key key = Key.key(id.toString());
 		layer.removeMarker(key);
-		map.remove(id);
 	}
 }

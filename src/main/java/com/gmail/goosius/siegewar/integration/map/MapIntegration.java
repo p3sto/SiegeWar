@@ -17,7 +17,6 @@ import java.util.*;
 public abstract class MapIntegration {
 	protected static final String DORMANT_BANNER_ICON_ID = "siegewar.dormant";
 	protected static final String ACTIVE_BANNER_ICON_ID = "siegewar.active";
-	protected final Map<UUID, SiegeIcon> map = new HashMap<>();
 	protected final SiegeWar plugin;
 
 	protected MapIntegration(SiegeWar plugin) {
@@ -81,9 +80,5 @@ public abstract class MapIntegration {
 				&& siege.getDefenderBattlePoints() == 0
 				&& siege.getBannerControllingSide() == SiegeSide.NOBODY
 				&& siege.getBannerControlSessions().isEmpty());
-	}
-
-	protected enum SiegeIcon {
-		ACTIVE, DORMANT
 	}
 }

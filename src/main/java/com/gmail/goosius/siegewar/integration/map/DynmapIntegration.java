@@ -64,6 +64,7 @@ public class DynmapIntegration extends MapIntegration {
 			markerSet.addAllowedMarkerIcon(activeIcon);
 			markerSet.addAllowedMarkerIcon(dormantIcon);
 			markerSet.setHideByDefault(false);
+			SiegeWar.info("Registered markers for dynmap");
 		}
 	}
 
@@ -86,7 +87,6 @@ public class DynmapIntegration extends MapIntegration {
 
 		String tooltip = iconToolTip(siege);
 		siegeMarker.setDescription(tooltip);
-		map.put(siegeId, useDormant ? SiegeIcon.DORMANT : SiegeIcon.ACTIVE);
 	}
 
 	@Override
@@ -94,6 +94,5 @@ public class DynmapIntegration extends MapIntegration {
 		UUID id = siege.getDefender().getUUID();
 		Marker siegeMarker = markerSet.findMarker(id.toString());
 		siegeMarker.deleteMarker();
-		map.remove(id);
 	}
 }

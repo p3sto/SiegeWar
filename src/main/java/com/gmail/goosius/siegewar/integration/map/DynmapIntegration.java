@@ -58,9 +58,11 @@ public class DynmapIntegration extends MapIntegration {
 			markerSet = markerAPI.createMarkerSet(
 					"sisgewar.markerset",
 					SiegeWarSettings.getWebmapLayerName(),
-					Set.of(dormantIcon, activeIcon),
-					false
+						null,
+						false
 			);
+			markerSet.addAllowedMarkerIcon(activeIcon);
+			markerSet.addAllowedMarkerIcon(dormantIcon);
 			markerSet.setHideByDefault(false);
 		}
 	}

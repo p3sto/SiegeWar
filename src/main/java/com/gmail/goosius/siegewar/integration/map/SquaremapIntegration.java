@@ -8,7 +8,6 @@ import com.palmergames.bukkit.towny.TownyUniverse;
 import com.palmergames.bukkit.towny.object.TownyWorld;
 import com.palmergames.bukkit.towny.object.Translation;
 import org.bukkit.Location;
-import org.dynmap.markers.MarkerAPI;
 import xyz.jpenilla.squaremap.api.*;
 import xyz.jpenilla.squaremap.api.marker.Icon;
 import xyz.jpenilla.squaremap.api.marker.Marker;
@@ -28,7 +27,7 @@ public class SquaremapIntegration extends MapIntegration {
 	private Key activeIcon;
 	private Key dormantIcon;
 
-	protected SquaremapIntegration(SiegeWar plugin) {
+	public SquaremapIntegration(SiegeWar plugin) {
 		super(plugin);
 	}
 
@@ -49,11 +48,10 @@ public class SquaremapIntegration extends MapIntegration {
 			Optional<MapWorld> opt = api.getWorldIfEnabled(id);
 			opt.ifPresent(map -> map.layerRegistry().register(LAYER_ID, layer));
 		}
-		SiegeWar.info("Enabling squaremap support...");
 	}
 
 	@Override
-	public void registerMarkers() {
+	protected void registerMarkers() {
 		try {
 			Registry<BufferedImage> registry = api.iconRegistry();
 			activeIcon = Key.of(ACTIVE_BANNER_ICON_ID);
@@ -71,11 +69,11 @@ public class SquaremapIntegration extends MapIntegration {
 	}
 
 	@Override
-	public void updateMarker(Siege siege, boolean useDormantIcon) {
+	public void updateMarker(Siege siege, boolean dormant) {
 		// Configure icon settings
 		Location loc = siege.getFlagLocation();
 		Point point = Point.of(loc.getX(), loc.getZ());
-		Key iconKey = useDormantIcon ? dormantIcon : activeIcon;
+		Key iconKey = dormant ? dormantIcon : activeIcon;
 		Icon icon = Marker.icon(point, iconKey, 16);
 		String name = Translation.of("dynmap_siege_title", siege.getAttackerNameForDisplay(), siege.getDefenderNameForDisplay());
 		String toolTip = iconToolTip(siege);

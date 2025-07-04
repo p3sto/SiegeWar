@@ -16,7 +16,6 @@ import org.dynmap.markers.MarkerSet;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Set;
 import java.util.UUID;
 
 public class DynmapIntegration extends MapIntegration {
@@ -25,7 +24,7 @@ public class DynmapIntegration extends MapIntegration {
 	private MarkerSet markerSet;
 
 
-	protected DynmapIntegration(SiegeWar plugin) {
+	public DynmapIntegration(SiegeWar plugin) {
 		super(plugin);
 	}
 
@@ -36,14 +35,12 @@ public class DynmapIntegration extends MapIntegration {
 			public void apiEnabled(DynmapCommonAPI dynmapCommonAPI) {
 				api = dynmapCommonAPI;
 				markerAPI = api.getMarkerAPI();
-				SiegeWar.info("Enabling dynmap support");
 			}
 		});
 	}
 
 	@Override
-	public void registerMarkers() {
-		MarkerAPI markerAPI = api.getMarkerAPI();
+	protected void registerMarkers() {
 		if (markerSet == null) {
 			MarkerIcon activeIcon;
 			MarkerIcon dormantIcon;
@@ -69,11 +66,11 @@ public class DynmapIntegration extends MapIntegration {
 	}
 
 	@Override
-	public void updateMarker(Siege siege, boolean useDormant) {
+	public void updateMarker(Siege siege, boolean dormant) {
 		UUID siegeId = siege.getDefender().getUUID();
 		String id = siegeId.toString();
 		Marker siegeMarker = markerSet.findMarker(id);
-		MarkerIcon icon = api.getMarkerAPI().getMarkerIcon(useDormant ? DORMANT_BANNER_ICON_ID : ACTIVE_BANNER_ICON_ID);
+		MarkerIcon icon = markerAPI.getMarkerIcon(dormant ? DORMANT_BANNER_ICON_ID : ACTIVE_BANNER_ICON_ID);
 
 		// Create icon if it doesn't exist
 		if (siegeMarker == null) {

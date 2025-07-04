@@ -23,9 +23,15 @@ public abstract class MapIntegration {
 		this.plugin = plugin;
 	}
 
-	public abstract void initialize();
+	public void enable() {
+		initialize();
+		registerMarkers();
+		new MapTask(this).runTaskTimerAsynchronously(plugin, 40, 300);
+	}
 
-	public abstract void registerMarkers();
+	protected abstract void initialize();
+
+	protected abstract void registerMarkers();
 
 	public abstract void updateMarker(Siege siege, boolean useDormantIcon);
 
@@ -39,12 +45,7 @@ public abstract class MapIntegration {
 				removeMarker(siege);
 				continue;
 			}
-
-			UUID id = siege.getDefender().getUUID();
-			SiegeIcon icon = map.get(id);
-			boolean dormant = icon == SiegeIcon.ACTIVE && isSiegeDormant(siege);
-			map.put(id, dormant ? SiegeIcon.DORMANT : SiegeIcon.ACTIVE);
-			updateMarker(siege, dormant);
+			updateMarker(siege,  isSiegeDormant(siege));
 		}
 	}
 

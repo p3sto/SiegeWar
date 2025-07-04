@@ -1,5 +1,8 @@
 package com.gmail.goosius.siegewar;
 
+import com.gmail.goosius.siegewar.integration.map.DynmapIntegration;
+import com.gmail.goosius.siegewar.integration.map.MapIntegration;
+import com.gmail.goosius.siegewar.integration.map.SquaremapIntegration;
 import com.gmail.goosius.siegewar.listeners.SiegeWarTownyChatEventListener;
 import com.gmail.goosius.siegewar.settings.SiegeWarSettings;
 import com.gmail.goosius.siegewar.utils.DataCleanupUtil;
@@ -24,7 +27,6 @@ import com.gmail.goosius.siegewar.command.SiegeWarAdminCommand;
 import com.gmail.goosius.siegewar.command.SiegeWarCommand;
 import com.gmail.goosius.siegewar.command.SiegeWarNationSetOccupationTaxAddonCommand;
 import com.gmail.goosius.siegewar.hud.SiegeHUDManager;
-import com.gmail.goosius.siegewar.integration.dynmap.DynmapIntegration;
 import com.gmail.goosius.siegewar.listeners.SiegeWarActionListener;
 import com.gmail.goosius.siegewar.listeners.SiegeWarBukkitEventListener;
 import com.gmail.goosius.siegewar.listeners.SiegeWarNationEventListener;
@@ -154,9 +156,17 @@ public class SiegeWar extends JavaPlugin {
 		} else if (!SiegeWarSettings.getWarSiegeEnabled()) {
 			info("SiegeWar is disabled in config. Plugin integrations disabled.");
 		} else {
-			if (getServer().getPluginManager().isPluginEnabled("dynmap")) {
-				info("SiegeWar found Dynmap plugin, enabling Dynmap support.");
-				new DynmapIntegration(this);
+			PluginManager manager = getServer().getPluginManager();
+			if (manager.isPluginEnabled("dynmap")) {
+				info("Enabling dynmap support...");
+				MapIntegration map = new DynmapIntegration(this);
+				map.enable();
+			}
+
+			if (manager.isPluginEnabled("squaremap")) {
+				info("Enabling squaremap support...");
+				MapIntegration map = new SquaremapIntegration(this);
+				map.enable();
 			}
 		}
 	}
